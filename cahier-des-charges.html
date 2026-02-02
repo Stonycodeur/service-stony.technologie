@@ -139,6 +139,9 @@
       box-sizing: border-box;
       backdrop-filter: blur(10px);
     }
+        .tel-container, .budget-container { display: flex; gap: 10px; flex-wrap: wrap; }
+    .tel-container select, .budget-container select { flex: 1; min-width: 120px; }
+    .tel-container input, .budget-container input { flex: 3; min-width: 150px; }
 
     header {
       text-align: center; border-bottom: 2px solid var(--primary);
@@ -269,6 +272,49 @@
 
       <label>Nom du Projet : *</label>
       <input type="text" name="titre_projet" placeholder="Quel est le titre de votre projet ?" required>
+
+      <label>Téléphone :</label>
+        <div class="tel-container">
+          <select name="indicatif" required>
+            <option value="">🌍 Pays 👇</option>
+            <option value="+971">🇦🇪 +971 (Émirats Arabes Unis)</option>
+            <option value="+213">🇩🇿 +213 (Algérie)</option>
+            <option value="+54">🇦🇷 +54 (Argentine)</option>
+            <option value="+27">🇿🇦 +27 (Afrique du Sud)</option>
+            <option value="+32">🇧🇪 +32 (Belgique)</option>
+            <option value="+229">🇧🇯 +229 (Bénin)</option>
+            <option value="+55">🇧🇷 +55 (Brésil)</option>
+            <option value="+226">🇧🇫 +226 (Burkina Faso)</option>
+            <option value="+237">🇨🇲 +237 (Cameroun)</option>
+            <option value="+1">🇨🇦 +1 (Canada)</option>
+            <option value="+236">🇨🇫 +236 (Centrafrique)</option>
+            <option value="+86">🇨🇳 +86 (Chine)</option>
+            <option value="+242">🇨🇬 +242 (Congo - Brazzaville)</option>
+            <option value="+243">🇨🇩 +243 (Congo - Kinshasa / RDC)</option>
+            <option value="+225">🇨🇮 +225 (Côte d’Ivoire)</option>
+            <option value="+49">🇩🇪 +49 (Allemagne)</option>
+            <option value="+34">🇪🇸 +34 (Espagne)</option>
+            <option value="+33">🇫🇷 +33 (France)</option>
+            <option value="+241">🇬🇦 +241 (Gabon)</option>
+            <option value="+233">🇬🇭 +233 (Ghana)</option>
+            <option value="+240">🇬🇶 +240 (Guinée Équatoriale)</option>
+            <option value="+91">🇮🇳 +91 (Inde)</option>
+            <option value="+39">🇮🇹 +39 (Italie)</option>
+            <option value="+81">🇯🇵 +81 (Japon)</option>
+            <option value="+223">🇲🇱 +223 (Mali)</option>
+            <option value="+212">🇲🇦 +212 (Maroc)</option>
+            <option value="+52">🇲🇽 +52 (Mexique)</option>
+            <option value="+234">🇳🇬 +234 (Nigeria)</option>
+            <option value="+221">🇸🇳 +221 (Sénégal)</option>
+            <option value="+41">🇨🇭 +41 (Suisse)</option>
+            <option value="+228">🇹🇬 +228 (Togo)</option>
+            <option value="+216">🇹🇳 +216 (Tunisie)</option>
+            <option value="+90">🇹🇷 +90 (Turquie)</option>
+            <option value="+44">🇬🇧 +44 (Royaume-Uni)</option>
+            <option value="+1">🇺🇸 +1 (États-Unis)</option>
+          </select>
+          <input type="tel" name="telephone" placeholder="Numéro" required>
+      </div>
 
       <label>Description du Projet : *</label>
       <textarea name="description" rows="5" placeholder="Genèse, attentes, vision du déroulé..." required></textarea>
