@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="stonycyber.png" rel="icon">
+  <title>Formulaire de Devis - STONY.TECHNOLOGIE</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=JetBrains+Mono&display=swap');
+    
+    /* --- VARIABLES POUR LE MODE JOUR/NUIT --- */
+    :root {
+      --bg-gradient: radial-gradient(circle at center, #102a43 0%, #050a0f 100%);
+      --text-color: #ffffff;
+      --section-bg: rgba(15, 32, 54, 0.8);
+      --input-bg: #050a0f;
+      --accent-color: #00bcd4;
+      --label-color: #a8d8ff;
+    }
+
+    [data-theme="light"] {
+      --bg-gradient: radial-gradient(circle at center, #f0f4f8 0%, #d9e2ec 100%);
+      --text-color: #102a43;
+      --section-bg: rgba(255, 255, 255, 0.9);
+      --input-bg: #ffffff;
+      --accent-color: #008ba3;
+      --label-color: #102a43;
+    }
+
+    /* --- NAVIGATION --- */
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+      border-bottom: 1px solid var(--accent-color);
+    }
+    
+    .nav-header a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9em;
+      margin-right: 15px;
+    }
+
+    .theme-toggle {
+      background: var(--accent-color);
+      border: none;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8em;
+    }
+
+    /* --- VOS STYLES ORIGINAUX (ADAPTÉS AUX VARIABLES) --- */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-color);
+      padding: 0;
+      margin: 0;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: linear-gradient(rgba(0, 188, 212, 0.05) 1px, transparent 1px), 
+                        linear-gradient(90deg, rgba(0, 188, 212, 0.05) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -1;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-bottom: 3px solid #00bcd4;
+      box-shadow: 0 0 30px rgba(0, 188, 212, 0.4);
+    }
+
+    .container { 
+      max-width: 850px; 
+      margin: 20px auto; 
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    h1, h2 { color: #00bcd4; text-align: center; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,188,212,0.5); }
+    
+    .instruction-text {
+      text-align: center;
+      background: rgba(0, 188, 212, 0.15);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      border: 1px solid #00bcd4;
+      font-weight: 300;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      background-color: var(--section-bg);
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(0,188,212,0.3);
+      backdrop-filter: blur(5px);
+    }
+
+    h3 { border-left: 5px solid #00bcd4; padding-left: 15px; color: #00bcd4; font-family: 'JetBrains Mono', monospace; }
+
+    label { display: block; margin-top: 15px; font-weight: 600; color: var(--label-color); }
+    
+    input, textarea, select {
+      width: 100%; padding: 12px; margin-top: 8px;
+      border-radius: 6px; border: 1px solid #00bcd4;
+      background-color: var(--input-bg); color: var(--text-color);
+      box-sizing: border-box;
+      outline: none;
+      font-size: 16px; 
+    }
+
+    input:focus, textarea:focus { border-color: #ffffff; box-shadow: 0 0 10px rgba(0,188,212,0.5); }
+
+    .tel-container, .budget-container { display: flex; gap: 10px; flex-wrap: wrap; }
+    .tel-container select, .budget-container select { flex: 1; min-width: 120px; }
+    .tel-container input, .budget-container input { flex: 3; min-width: 150px; }
+
+    .grid-2 { display: flex; gap: 20px; }
+    .grid-2 > div { flex: 1; }
+
+    .submit-btn {
+      background: linear-gradient(45deg, #00bcd4, #005f6b);
+      color: #fff; padding: 20px; border: none;
+      border-radius: 8px; cursor: pointer;
+      font-size: 18px; font-weight: bold; text-transform: uppercase;
+      width: 100%; transition: 0.4s;
+      box-shadow: 0 0 20px rgba(0,188,212,0.3);
+    }
+
+    .submit-btn:hover { background: #00bcd4; transform: scale(1.01); box-shadow: 0 0 30px rgba(0,188,212,0.6); }
+
+    .wa-btn {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    footer { text-align: center; margin-top: 50px; padding: 30px; background: rgba(0,0,0,0.5); color: #a8d8ff; font-size: 0.9em; }
+    .doc-link { color: #00bcd4; font-weight: bold; }
+
+    /* --- RESPONSIVITÉ --- */
+    @media (max-width: 768px) {
+      .grid-2 { flex-direction: column; gap: 0; }
+      .container { padding: 10px; margin: 10px auto; }
+      .section { padding: 15px; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.1rem; }
+      .hero-image { max-height: 250px; }
+    }
+
+    @media (min-width: 1600px) {
+      .container { max-width: 1200px; }
+      body { font-size: 18px; }
+      .submit-btn { font-size: 22px; }
+    }
+  </style>
+</head>
+<body id="mainBody">
+
+  <nav class="nav-header">
+    <div class="nav-links">
+      <a href="index.html">🏠 Accueil</a>
+      <a href="cahier-des-charges.html">📑 Cahier des Charges</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 MODE JOUR/NUIT</button>
+  </nav>
+
+  <img src="stonycyber.png" alt="STONY TECHNOLOGY" class="hero-image">
+
+  <div class="container">
+    <h1>📑 Espace Client</h1>
+    <h2>STONY.TECHNOLOGIE</h2>
+    <p class="instruction-text">🔒 Serveur sécurisé - Demande de devis confidentielle</p>
+
+  <form id="cdchForm" action="https://script.google.com/macros/s/AKfycbwn9mU-IGlwaxIqS-z-jrACoAWbERJ2ao6j7I9jqvP5n1EPawK0pYPwLUTzwH6G_gWI/exec" method="POST">
+  
+      <div class="section">
+        <h3>👤 IDENTITÉ DU CLIENT</h3>
+        <label>Nom / Raison sociale :</label>
+        <input type="text" id="nom" name="nom" placeholder="Ex: Stony Sima" required>
+
+        <label>Personne de contact (si entreprise) :</label>
+        <input type="text" name="contact" placeholder="Nom du responsable">
+
+        <label>Adresse complète :</label>
+        <input type="text" name="adresse" placeholder="Ville, Pays">
+
+        <label>Téléphone :</label>
+        <div class="tel-container">
+          <select name="indicatif" required>
+            <option value="">🌍 Pays 👇</option>
+            <option value="+971">🇦🇪 +971 (Émirats Arabes Unis)</option>
+            <option value="+213">🇩🇿 +213 (Algérie)</option>
+            <option value="+54">🇦🇷 +54 (Argentine)</option>
+            <option value="+27">🇿🇦 +27 (Afrique du Sud)</option>
+            <option value="+32">🇧🇪 +32 (Belgique)</option>
+            <option value="+229">🇧🇯 +229 (Bénin)</option>
+            <option value="+55">🇧🇷 +55 (Brésil)</option>
+            <option value="+226">🇧🇫 +226 (Burkina Faso)</option>
+            <option value="+237">🇨🇲 +237 (Cameroun)</option>
+            <option value="+1">🇨🇦 +1 (Canada)</option>
+            <option value="+236">🇨🇫 +236 (Centrafrique)</option>
+            <option value="+86">🇨🇳 +86 (Chine)</option>
+            <option value="+242">🇨🇬 +242 (Congo - Brazzaville)</option>
+            <option value="+243">🇨🇩 +243 (Congo - Kinshasa / RDC)</option>
+            <option value="+225">🇨🇮 +225 (Côte d’Ivoire)</option>
+            <option value="+49">🇩🇪 +49 (Allemagne)</option>
+            <option value="+34">🇪🇸 +34 (Espagne)</option>
+            <option value="+33">🇫🇷 +33 (France)</option>
+            <option value="+241">🇬🇦 +241 (Gabon)</option>
+            <option value="+233">🇬🇭 +233 (Ghana)</option>
+            <option value="+240">🇬🇶 +240 (Guinée Équatoriale)</option>
+            <option value="+91">🇮🇳 +91 (Inde)</option>
+            <option value="+39">🇮🇹 +39 (Italie)</option>
+            <option value="+81">🇯🇵 +81 (Japon)</option>
+            <option value="+223">🇲🇱 +223 (Mali)</option>
+            <option value="+212">🇲🇦 +212 (Maroc)</option>
+            <option value="+52">🇲🇽 +52 (Mexique)</option>
+            <option value="+234">🇳🇬 +234 (Nigeria)</option>
+            <option value="+221">🇸🇳 +221 (Sénégal)</option>
+            <option value="+41">🇨🇭 +41 (Suisse)</option>
+            <option value="+228">🇹🇬 +228 (Togo)</option>
+            <option value="+216">🇹🇳 +216 (Tunisie)</option>
+            <option value="+90">🇹🇷 +90 (Turquie)</option>
+            <option value="+44">🇬🇧 +44 (Royaume-Uni)</option>
+            <option value="+1">🇺🇸 +1 (États-Unis)</option>
+          </select>
+          <input type="tel" name="telephone" placeholder="Numéro" required>
+        </div>
+
+        <label>Adresse Email :</label>
+        <input type="email" name="email" required>
+
+        <label>Type d'entité :</label>
+        <select name="entite">
+          <option>Personnel / Particulier</option>
+          <option>PME / Startup</option>
+          <option>Administration / État</option>
+          <option>Acteur du digital</option>
+        </select>
+      </div>
+
+      <div class="section">
+        <h3>🚀 CAHIER DES CHARGES</h3>
+        <label>Intitulé du projet :</label>
+        <input type="text" id="titre_projet" name="titre_projet" required>
+
+        <label>Description détaillée :</label>
+        <textarea name="description" rows="4" placeholder="Décrivez votre besoin s'il vous plait..."></textarea>
+
+        <label>Type de prestation :</label>
+        <select name="prestation">
+          <option value="">Sélectionner le type de prestation 👇</option>
+          <option>Sécurité Informatique (Audit, Protection)</option>
+          <option>Consultant Stratégie & Conseil Informatique</option>
+          <option>Développement Software & Web</option>
+          <option>Gestion de Réseaux & Comptes</option>
+          <option>Formation Informatique</option>
+        </select>
+
+        <div class="grid-2">
+          <div>
+            <label>Mode d’intervention souhaité :</label>
+            <select name="mode">
+              <option value="">Choisir 👇</option>
+              <option value="À distance">À distance</option>
+              <option value="Présentiel">Présentiel</option>
+              <option value="Mixte">Mixte</option>
+            </select>
+          </div>
+          <div>
+            <label>Sélectionner le Niveau d’urgence 👇:</label>
+            <select name="urgence">
+              <option value="Normal">Normal</option>
+              <option value="Prioritaire">Prioritaire</option>
+              <option value="Urgent">Urgent 🔥</option>
+            </select>
+          </div>
+        </div>
+
+        <label>Budget estimée du projet :</label>
+        <div class="budget-container">
+            <input type="number" name="budget_montant" placeholder="Montant">
+            <select name="devise">
+                <option value="TND">Dinar (TND)</option>
+                <option value="FCFA">Franc CFA (XAF)</option>
+                <option value="EUR">Euros (€)</option>
+                <option value="USD">Dollars ($)</option>
+            </select>
+        </div>
+
+        <label>Lien de référence (Exemple, Vidéo, Site) :</label>
+        <input type="url" name="exemples" placeholder="https://...">
+      </div>
+
+      <div class="section">
+        <h3>⚙️ OPTIONS SUPPLÉMENTAIRES</h3>
+        <label>Contraintes particulières :</label>
+        <input type="text" name="contraintes" placeholder="Délais, technologies imposées...">
+
+        <label>Livrables attendus :</label>
+        <input type="text" name="livrables" placeholder="Rapport, Code source, Logiciel...">
+
+        <div class="grid-2">
+          <div>
+            <label>Langue de travail :</label>
+            <select name="langue">
+              <option value="Français">Français</option>
+              <option value="Anglais">Anglais</option>
+            </select>
+          </div>
+          <div>
+            <label>Souhaitez-vous un contrat formel ?</label>
+            <select name="contrat">
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+              <option value="À discuter">À discuter</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>📁 DOCUMENTS & PIÈCES JOINTES</h3>
+        <div style="background: rgba(0, 188, 212, 0.1); padding: 15px; border-radius: 10px; border: 1px dashed #00bcd4;">
+            <p><strong>Option 1 : Envoi par WhatsApp</strong></p>
+            <button type="button" onclick="sendToWhatsApp()" class="wa-btn">📲 Préparer l'envoi WhatsApp</button>
+            <hr style="margin: 20px 0; border: 0.5px solid rgba(0,188,212,0.2);">
+            <p><strong>Option 2 : Email</strong></p>
+            <p style="font-size: 0.9em;">Envoyez à <a href="mailto:stonytechnologie@gmail.com" class="doc-link">stonytechnologie@gmail.com</a></p>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">✅ VALIDER ET ENVOYER LE DEVIS</button>
+    </form>
+
+    <footer>
+      <p>📍 Tunis, Tunisie | 📍 Libreville, Gabon</p>
+      <p>📞 +216 54 743 233 / +241 062 135 598</p>
+      <p>📧 stonytechnologie@gmail.com</p>
+      <p>Besoin d'aide ? <a href="https://wa.me/21654743233?text=Bonjour,%20je%20souhaite%20avoir%20plus%20d'infos%20sur%20vos%20prestations%20et%20services%20s'il%20vous%20plait." class="doc-link">Contactez-nous sur WhatsApp</a></p>
+      <p><strong>STONY.TECHNOLOGIE</strong> - Rapidité • Fiabilité • Professionnalisme</p>
+    </footer>
+  </div>
+
+  <script>
+    // LOGIQUE DU MODE JOUR/NUIT
+    function toggleTheme() {
+      const body = document.getElementById('mainBody');
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.setAttribute('data-theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+      }
+    }
+
+    function sendToWhatsApp() {
+      const nom = document.getElementById('nom').value || "Client";
+      const projet = document.getElementById('titre_projet').value || "Projet";
+      const message = `Bonjour STONY.TECHNOLOGIE, je suis ${nom}. Je souhaite vous transmettre des documents pour mon projet : ${projet}.`;
+      window.open(`https://wa.me/21654743233?text=${encodeURIComponent(message)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
