@@ -43,9 +43,8 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* Ajustement du bouton existant pour l'intégrer au menu */
     .theme-toggle {
-      position: static; /* Sort du flux fixed pour aller dans le flex du menu */
+      position: static;
       background: var(--primary);
       color: #000;
       border: none;
@@ -59,7 +58,6 @@
       gap: 8px;
     }
 
-    /* Styles Mode Jour */
     body.light-mode {
       --bg-dark: #f0f4f8;
       --card-bg: rgba(255, 255, 255, 0.98);
@@ -72,7 +70,6 @@
       background: rgba(240, 244, 248, 0.8);
     }
 
-    /* Animation de fond (Code Stream) */
     .bg-animation {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -99,7 +96,7 @@
 
     #progress-container {
       position: fixed;
-      top: 55px; /* Ajusté sous la nav */
+      top: 55px;
       left: 0; width: 100%; height: 6px;
       background: #05070a; z-index: 1001;
     }
@@ -125,7 +122,7 @@
     body {
       font-family: 'Poppins', sans-serif;
       color: var(--text);
-      margin: 0; padding: 80px 20px 40px; /* Padding top augmenté pour la nav */
+      margin: 0; padding: 80px 20px 40px;
       display: flex; flex-direction: column; align-items: center;
       transition: color 0.3s ease;
     }
@@ -184,20 +181,6 @@
     .priority-scale {
       display: flex; justify-content: space-between;
       max-width: 400px; margin: 10px 0;
-    }
-
-    .budget-container {
-      display: flex;
-      align-items: center;  
-      gap: 10px;             
-    }
-
-    .budget-container input {
-      flex: 1;     
-    }
-
-    .budget-container select {
-      width: 120px;   
     }
 
     .other-input {
@@ -265,6 +248,7 @@
 
   <form id="cdchForm" action="https://script.google.com/macros/s/AKfycbyLYUsA2QFQpiBAPbkUGSzMA-IXaOGMMTlAckQRCkO701okPNh7KTpWOHcznSXbJ5E_/exec" method="POST">
     <input type="hidden" name="security_token" value="STONY_2026_SECURE">
+    
     <div class="section fade-in">
       <h3>👤 Présentation de l'entreprise</h3>
       <label>Nom / Raison sociale :</label>
@@ -274,7 +258,7 @@
       <input type="text" name="titre_projet" placeholder="Quel est le titre de votre projet ?" required>
 
       <label>Téléphone :</label>
-        <div class="tel-container">
+      <div class="tel-container">
           <select name="indicatif" required>
             <option value="">🌍 Pays 👇</option>
             <option value="+971">🇦🇪 +971 (Émirats Arabes Unis)</option>
@@ -354,16 +338,12 @@
       <input type="text" id="other_site" name="prestation_autre" class="other-input" placeholder="Précisez le type de site...">
 
       <label>Niveau de Priorité du Projet : *</label>
-      <div style="display: flex; gap: 10px; align-items: center; font-size: 0.8rem;">
-        <span>Très élevée</span>
-        <div class="priority-scale">
+      <div class="priority-scale">
           <label><input type="radio" name="priorite" value="1" required> 1</label>
           <label><input type="radio" name="priorite" value="2"> 2</label>
           <label><input type="radio" name="priorite" value="3"> 3</label>
           <label><input type="radio" name="priorite" value="4"> 4</label>
           <label><input type="radio" name="priorite" value="5"> 5</label>
-        </div>
-        <span>Très basse</span>
       </div>
     </div>
 
@@ -406,26 +386,28 @@
       </div>
       <input type="text" id="other_func" name="fonctions_autre" class="other-input" placeholder="Autres fonctionnalités...">
 
-      <label>Types de contenus à publier :</label>
+        <label>Types de contenus à publier :</label>
       <div class="grid-options">
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Articles"> Articles</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Videos"> Vidéos</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Images"> Images</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Podcasts"> Podcasts</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Telechargements"> Documents/Liens</label>
+      <label class="checkbox-item"><input type="checkbox" name="fonctions" value="Autre" onclick="toggleOther('other_func')"> Autre</label>
       </div>
+      <input type="text" id="other_func" name="fonctions_autre" class="other-input" placeholder="Autres contenus...">
     </div>
 
     <div class="section fade-in">
       <h3>🎨 Design & Couleurs</h3>
       <label>Avez-vous des exemples de sites appréciés ?</label>
       <div class="grid-options">
-        <label class="checkbox-item"><input type="radio" name="exemples_radio" value="NON"> NON</label>
-        <label class="checkbox-item"><input type="radio" name="exemples_radio" value="OUI" onclick="toggleOther('other_design')"> OUI (précisez ci-dessous)</label>
+        <label class="checkbox-item"><input type="radio" name="exemples_radio" value="NON" checked> NON</label>
+        <label class="checkbox-item"><input type="radio" name="exemples_radio" value="OUI" onclick="toggleOther('other_design')"> OUI (précisez)</label>
       </div>
       <textarea id="other_design" name="exemples" class="other-input" placeholder="Collez les liens ou décrivez le style..."></textarea>
 
-      <label>Couleurs spécifiques à respecter :</label>
+      <label>Couleurs spécifiques (respect du script) :</label>
       <div class="grid-options">
         <label class="checkbox-item"><input type="checkbox" name="devise" value="Bleue"> 🔵 Bleue</label>
         <label class="checkbox-item"><input type="checkbox" name="devise" value="Verte"> 🟢 Verte</label>
@@ -435,16 +417,36 @@
         <label class="checkbox-item"><input type="checkbox" name="devise" value="Marron"> 🟤 Marron</label>
         <label class="checkbox-item"><input type="checkbox" name="devise" value="Blanc"> ⚪ Blanc</label>
         <label class="checkbox-item"><input type="checkbox" name="devise" value="Violet"> 🟣 Violet</label>
-        <label class="checkbox-item"><input type="checkbox" name="devise" value="Autre" onclick="toggleOther('other_color')"> Autre (Charte graphique)</label>
+        <label class="checkbox-item"><input type="checkbox" name="devise" value="Autre" onclick="toggleOther('other_color')"> Autre</label>
       </div>
-      <input type="text" id="other_color" name="devise_autre" class="other-input" placeholder="Lien charte ou codes couleurs...">
+      <input type="text" id="other_color" name="devise_autre" class="other-input" placeholder="Codes couleurs ou charte graphique...">
+    </div>
+
+    <div class="section fade-in">
+      <h3>📅 Disponibilités & Contraintes</h3>
+      <label>Disponibilité pour réunion (Lun-Sam, 10h-20h) :</label>
+      <div class="tel-container">
+        <select name="reunion_jour">
+          <option value="">Choisir un jour...</option>
+          <option value="Lundi">Lundi</option>
+          <option value="Mardi">Mardi</option>
+          <option value="Mercredi">Mercredi</option>
+          <option value="Jeudi">Jeudi</option>
+          <option value="Vendredi">Vendredi</option>
+          <option value="Samedi">Samedi</option>
+        </select>
+        <input type="time" name="reunion" min="10:00" max="20:00">
+      </div>
+
+      <label>Contraintes particulières (techniques, délais, budget) :</label>
+      <textarea name="contraintes" rows="3" placeholder="Décrivez vos contraintes ici..."></textarea>
     </div>
 
     <div class="section fade-in">
       <h3>💰 Budget & Délais</h3>
       <div class="budget-container">
           <input type="number" name="budget_montant" placeholder="Montant">
-          <select name="devise">
+          <select name="devise_select">
               <option value="TND">Dinar (TND)</option>
               <option value="FCFA">Franc CFA (XAF)</option>
               <option value="EUR">Euros (€)</option>
@@ -456,7 +458,7 @@
       <input type="date" name="livrables" required>
 
       <label>Votre adresse e-mail : *</label>
-      <input type="email" name="email" required placeholder="Pour vous envoyer le récapitulatif">
+      <input type="email" name="email" required placeholder="Pour le récapitulatif">
     </div>
 
     <button type="submit" class="submit-btn fade-in">🚀 Envoyer le cahier des charges</button>
@@ -480,84 +482,76 @@
 </footer>
 
 <script>
-// Scripts originaux préservés intégralement
 function openWhatsApp() {
   const nomClient = document.getElementById('nom').value || "Client";
-  const message = `Bonjour STONY.TECHNOLOGIE, Je suis ${nomClient}. Je souhaite avoir votre accompagnement pour le remplissage du cahier des charges s'il vous plaît.`;
+  const message = `Bonjour STONY.TECHNOLOGIE, Je suis ${nomClient}. Je souhaite avoir votre accompagnement pour le remplissage du cahier des charges s'il vous plait.`;
   const url = `https://wa.me/21654743233?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 }
 
-  function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
-    const text = document.getElementById('theme-text');
-    
-    body.classList.toggle('light-mode');
-    
-    if(body.classList.contains('light-mode')) {
-      icon.innerText = '🌙';
-      text.innerText = 'Mode Nuit';
-    } else {
-      icon.innerText = '☀️';
-      text.innerText = 'Mode Jour';
-    }
+function toggleTheme() {
+  const body = document.body;
+  const icon = document.getElementById('theme-icon');
+  const text = document.getElementById('theme-text');
+  body.classList.toggle('light-mode');
+  if(body.classList.contains('light-mode')) {
+    icon.innerText = '🌙'; text.innerText = 'Mode Nuit';
+  } else {
+    icon.innerText = '☀️'; text.innerText = 'Mode Jour';
   }
+}
 
-  const bg = document.getElementById('bgAnim');
-  const codeSnippets = ['<div>', 'const app = express()', 'if (isReady)', 'background: #00bcd4', 'npm install', '{ ...props }', '</body>', 'git commit -m', 'function init()', '</>', 'CSS', 'JS', 'React', 'STONY.TECH'];
+const bg = document.getElementById('bgAnim');
+const codeSnippets = ['<div>', 'const app = express()', 'if (isReady)', 'background: #00bcd4', 'npm install', 'git commit', 'STONY.TECH'];
 
-  function createCodeLine() {
-    const line = document.createElement('div');
-    line.className = 'code-line';
-    line.innerText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-    line.style.top = Math.random() * 100 + 'vh';
-    line.style.animationDuration = (Math.random() * 10 + 10) + 's';
-    line.style.fontSize = (Math.random() * 10 + 15) + 'px';
-    bg.appendChild(line);
-    setTimeout(() => line.remove(), 20000);
-  }
+function createCodeLine() {
+  const line = document.createElement('div');
+  line.className = 'code-line';
+  line.innerText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+  line.style.top = Math.random() * 100 + 'vh';
+  line.style.animationDuration = (Math.random() * 10 + 10) + 's';
+  bg.appendChild(line);
+  setTimeout(() => line.remove(), 20000);
+}
+setInterval(createCodeLine, 800);
 
-  setInterval(createCodeLine, 800);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+function toggleOther(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  el.focus();
+}
 
-  function toggleOther(id) {
-    const el = document.getElementById(id);
-    el.style.display = 'block';
-    el.focus();
-  }
+const form = document.getElementById('cdchForm');
+const progressBar = document.getElementById('progress-bar');
+const inputs = form.querySelectorAll('input[required], textarea[required]');
 
-  const form = document.getElementById('cdchForm');
-  const progressBar = document.getElementById('progress-bar');
-  const inputs = form.querySelectorAll('input[required], textarea[required]');
+function updateProgress() {
+  let filled = 0;
+  inputs.forEach(input => {
+    if (input.type === 'radio') {
+      if (form.querySelector(`input[name="${input.name}"]:checked`)) filled++;
+    } else if (input.value.trim() !== "") filled++;
+  });
+  progressBar.style.width = (filled / inputs.length) * 100 + "%";
+}
 
-  function updateProgress() {
-    let filled = 0;
-    inputs.forEach(input => {
-      if (input.type === 'radio') {
-        if (form.querySelector(`input[name="${input.name}"]:checked`)) filled++;
-      } else if (input.value.trim() !== "") filled++;
-    });
-    progressBar.style.width = (filled / inputs.length) * 100 + "%";
-  }
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
 
-  form.addEventListener('input', updateProgress);
-  form.addEventListener('change', updateProgress);
-
-  form.onsubmit = function(e) {
-    setTimeout(() => {
-      document.getElementById('modal-overlay').style.display = 'flex';
-      form.reset();
-      updateProgress();
-    }, 500);
-  };
-  function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+form.onsubmit = function(e) {
+  setTimeout(() => {
+    document.getElementById('modal-overlay').style.display = 'flex';
+    form.reset();
+    updateProgress();
+  }, 500);
+};
+function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
 </script>
 
 </body>
 </html>
-
