@@ -386,16 +386,16 @@
       </div>
       <input type="text" id="other_func" name="fonctions_autre" class="other-input" placeholder="Autres fonctionnalités...">
 
-        <label>Types de contenus à publier :</label>
+      <label>Types de contenus à publier :</label>
       <div class="grid-options">
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Articles"> Articles</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Videos"> Vidéos</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Images"> Images</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Podcasts"> Podcasts</label>
         <label class="checkbox-item"><input type="checkbox" name="contenus" value="Telechargements"> Documents/Liens</label>
-      <label class="checkbox-item"><input type="checkbox" name="contenus" value="Autre" onclick="toggleOther('other_func')"> Autre</label>
+        <label class="checkbox-item"><input type="checkbox" name="contenus" value="Autre" onclick="toggleOther('other_content')"> Autre</label>
       </div>
-      <input type="text" id="other_func" name="contenus_autre" class="other-input" placeholder="Autres contenus...">
+      <input type="text" id="other_content" name="contenus_autre" class="other-input" placeholder="Autres contenus..." style="display:none;">
     </div>
 
     <div class="section fade-in">
@@ -480,7 +480,17 @@
   <p>Besoin d'aide ? <a href="#" onclick="openWhatsApp()" class="doc-link">Contactez-nous sur WhatsApp</a></p>
   <p><strong>STONY.TECHNOLOGIE</strong> - Rapidité • Fiabilité • Professionnalisme</p>
 </footer>
-
+<script>
+  function toggleOther(id) {
+    const input = document.getElementById(id);
+    if (input.style.display === "none") {
+      input.style.display = "block";
+    } else {
+      input.style.display = "none";
+      input.value = ""; 
+    }
+  }
+</script>
 <script>
 function openWhatsApp() {
   const nomClient = document.getElementById('nom').value || "Client";
@@ -555,4 +565,5 @@ function closeModal() { document.getElementById('modal-overlay').style.display =
 
 </body>
 </html>
+
 
