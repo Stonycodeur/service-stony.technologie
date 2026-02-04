@@ -60,7 +60,7 @@
       font-size: 0.8em;
     }
 
-    /* --- VOS STYLES ORIGINAUX (ADAPTÉS AUX VARIABLES) --- */
+    /* --- VOS STYLES ORIGINAUX --- */
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--bg-gradient);
@@ -166,6 +166,17 @@
     footer { text-align: center; margin-top: 50px; padding: 30px; background: rgba(0,0,0,0.5); color: #a8d8ff; font-size: 0.9em; }
     .doc-link { color: #00bcd4; font-weight: bold; }
 
+    /* Style spécifique pour les boutons radio du rappel */
+    .radio-group { display: flex; gap: 20px; margin-top: 10px; }
+    .radio-item { display: flex; align-items: center; gap: 8px; color: var(--text-color); cursor: pointer; }
+    .radio-item input { width: auto; margin-top: 0; cursor: pointer; }
+
+    /* Animation d'ouverture */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* --- RESPONSIVITÉ --- */
     @media (max-width: 768px) {
       .grid-2 { flex-direction: column; gap: 0; }
@@ -174,12 +185,6 @@
       h1 { font-size: 1.5rem; }
       h2 { font-size: 1.1rem; }
       .hero-image { max-height: 250px; }
-    }
-
-    @media (min-width: 1600px) {
-      .container { max-width: 1200px; }
-      body { font-size: 18px; }
-      .submit-btn { font-size: 22px; }
     }
   </style>
 </head>
@@ -201,7 +206,9 @@
     <p class="instruction-text">🔒 Serveur sécurisé - Demande de devis confidentielle</p>
 
   <form id="cdchForm" action="https://script.google.com/macros/s/AKfycbz6WDUw64oXOaQoW2Ao-La-SYhO8vy2TLuoqNxdpXRAQFs6VKml9wu9YU2VLufcJ09Z/exec" method="POST">
-      <input type="hidden" name="security_token" value="STONY_2026_SECURE">
+    
+    <input type="hidden" name="security_token" value="STONY_2026_SECURE">
+      
       <div class="section">
         <h3>👤 IDENTITÉ DU CLIENT</h3>
         <label>Nom / Raison sociale :</label>
@@ -346,6 +353,41 @@
             </select>
           </div>
         </div>
+
+        <label>Disponible pour un appel ?</label>
+        <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="appel_dispo" value="Oui" onclick="toggleAppelFields(true)"> OUI
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="appel_dispo" value="Non" onclick="toggleAppelFields(false)" checked> NON
+          </label>
+        </div>
+
+        <div id="appel_details" style="display: none; animation: slideDown 0.4s ease-out; margin-top: 15px; background: rgba(0, 188, 212, 0.05); padding: 15px; border-radius: 10px; border: 1px dashed var(--accent-color);">
+          <div class="grid-2">
+            <div>
+              <label>Sélectionner le jour :</label>
+              <select name="appel_jour">
+                <option value="Aujourd'hui">Aujourd'hui</option>
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+                <option value="Samedi">Samedi</option>
+              </select>
+            </div>
+            <div>
+              <label>Sélectionner l'heure :</label>
+              <select name="appel_heure">
+                <option value="Matin (09:00 - 12:00)">Matin (09:00 - 12:00)</option>
+                <option value="Après-midi (14:00 - 17:00)">Après-midi (14:00 - 17:00)</option>
+                <option value="Soir (17:00 - 19:00)">Soir (17:00 - 20:00)</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="section">
@@ -381,6 +423,12 @@
       } else {
         body.setAttribute('data-theme', 'light');
       }
+    }
+
+    // GESTION DE L'AFFICHAGE DU RAPPEL
+    function toggleAppelFields(show) {
+      const details = document.getElementById('appel_details');
+      details.style.display = show ? 'block' : 'none';
     }
 
     function sendToWhatsApp() {
